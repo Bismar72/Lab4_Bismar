@@ -1,0 +1,74 @@
+@page
+@model rp_ef_maria.Pages.Games.IndexModel
+@inject StoreContext _context
+
+@{
+	ViewData["Title"] = "Index";
+
+}
+
+<h1>Index</h1>
+<div>
+	<h3>Filter</h3>
+	<form>
+		<p>Search Title: <input type="text" asp-for="Query" /></p>
+		<p>Date: <input type="date" asp-for="SelectedDate" /></p>
+		<p>Search By Date:
+			<select asp-for="Before">
+				<option value="before"> Before</option>
+				<option value="after"> After</option>
+			</select>
+		</p>
+		<p>Enable: <input type="checkbox" asp-for="Enabled" /></p>
+		<input type="submit" value="Search" />
+	</form>
+</div>
+
+<p>
+	<a asp-page="Create">Create New</a>
+</p>
+
+
+<table class="table">
+	<thead>
+		<tr>
+			<th>
+				@Html.DisplayNameFor(model => model.Game[0].Title)
+			</th>
+			<th>
+				@Html.DisplayNameFor(model => model.Game[0].ReleaseDate)
+			</th>
+			<th>
+				@Html.DisplayNameFor(model => model.Game[0].Genre)
+			</th>
+			<th>
+				@Html.DisplayNameFor(model => model.Game[0].Price)
+			</th>
+			<th></th>
+		</tr>
+	</thead>
+	<tbody>
+		@foreach (var item in Model.Game)
+		{
+			<tr>
+				<td>
+					@Html.DisplayFor(modelItem => item.Title)
+				</td>
+				<td>
+					@Html.DisplayFor(modelItem => item.ReleaseDate)
+				</td>
+				<td>
+					@Html.DisplayFor(modelItem => item.Genre)
+				</td>
+				<td>
+					@Html.DisplayFor(modelItem => item.Price)
+				</td>
+				<td>
+					<a asp-page="./Edit" asp-route-id="@item.GameId">Edit</a> |
+					<a asp-page="./Details" asp-route-id="@item.GameId">Details</a> |
+					<a asp-page="./Delete" asp-route-id="@item.GameId">Delete</a>
+				</td>
+			</tr>
+		}
+	</tbody>
+</table>
